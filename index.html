@@ -1,40 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Todo App</title>
-    <link rel="stylesheet" href="./style.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <style>
-      body {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-      }
-    </style>
-  </head>
-  <body>
-    <div id="app">
-      <h2>Todo App</h2>
-      <input
-        type="text"
-        id="taskInput"
-        placeholder="Enter task"
-        onkeyup="checkEnter(event)"
-      />
-      <button onclick="addTask()">Add Task</button>
-      <button class="clear" onclick="clearAll()">Clear All</button>
-      <ul id="taskList"></ul>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rearview — see yourself the way they just saw you</title>
+  <meta name="description" content="A time-shifted live mirror for video calls. Glance at yourself as you were 3 seconds ago — eyes on the screen, mid-conversation — exactly how the other person saw you." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="header">
+      <h1>Rearview</h1>
+      <p class="tagline">See yourself the way they <em>just</em> saw you.</p>
+    </header>
 
-      <script src="./app.js"></script>
-    </div>
-  </body>
+    <section class="explainer" id="explainer">
+      <p>
+        On a video call, the moment you glance at your self-view your eyes have already
+        moved — so you only ever see your <em>checking-the-mirror</em> face, never your real
+        mid-conversation face.
+      </p>
+      <p>
+        <strong>Rearview plays your camera back on a short delay.</strong> When you glance over,
+        you're watching live, moving video of yourself from a few seconds ago — eyes still on the
+        screen, still talking — exactly how the other person saw you. No freezing, no screenshots.
+      </p>
+    </section>
+
+    <section class="stage">
+      <div class="canvas-wrap" id="canvasWrap">
+        <canvas id="view"></canvas>
+        <div class="placeholder" id="placeholder">
+          <button class="btn btn-primary" id="startBtn">Start camera</button>
+          <p class="privacy-note">Everything stays on your device. Nothing is recorded or uploaded.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="controls hidden" id="controls">
+      <div class="control">
+        <label for="delaySlider">Delay <span class="value" id="delayValue">3.0s</span></label>
+        <input type="range" id="delaySlider" min="0" max="5" step="0.5" value="3" />
+        <p class="hint">How far back in time your mirror looks. 0s = a normal live mirror.</p>
+      </div>
+
+      <div class="control control-row">
+        <label class="toggle">
+          <input type="checkbox" id="mirrorToggle" />
+          <span>Mirror image</span>
+        </label>
+        <p class="hint">Off = unmirrored, how others actually see you. On = like a bathroom mirror.</p>
+      </div>
+
+      <div class="control control-row">
+        <button class="btn" id="pipBtn" title="Pop out a small floating window you can keep over your call app">
+          Pop out (Picture-in-Picture)
+        </button>
+        <button class="btn btn-quiet" id="stopBtn">Stop camera</button>
+      </div>
+
+      <p class="hint tip">
+        Tip: pop out the floating window and park it near your webcam, then get on your call.
+        Keep this tab visible (or popped out) so the delayed feed keeps running.
+      </p>
+    </section>
+
+    <footer class="footer">
+      <p>Runs entirely in your browser · no account · no servers · open source</p>
+    </footer>
+  </main>
+
+  <script src="app.js"></script>
+</body>
 </html>
