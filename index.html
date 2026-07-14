@@ -3,72 +3,141 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Rearview — see yourself the way they just saw you</title>
+  <title>rearview. — see yourself the way they just saw you</title>
   <meta name="description" content="A time-shifted live mirror for video calls. Glance at yourself as you were 3 seconds ago — eyes on the screen, mid-conversation — exactly how the other person saw you." />
+  <meta property="og:title" content="rearview." />
+  <meta property="og:description" content="See yourself the way they just saw you. A time-shifted live mirror for video calls." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%237c5cff'/%3E%3Cstop offset='1' stop-color='%2300d4ff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='%230b0b10'/%3E%3Cpath d='M16 7a9 9 0 1 1-8.6 6.3' fill='none' stroke='url(%23g)' stroke-width='3' stroke-linecap='round'/%3E%3Cpath d='M4.5 8.5l3 5 5.5-2' fill='none' stroke='url(%23g)' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <main class="app">
-    <header class="header">
-      <h1>Rearview</h1>
-      <p class="tagline">See yourself the way they <em>just</em> saw you.</p>
-    </header>
+  <div class="bg-glow" aria-hidden="true"></div>
 
-    <section class="explainer" id="explainer">
-      <p>
-        On a video call, the moment you glance at your self-view your eyes have already
-        moved — so you only ever see your <em>checking-the-mirror</em> face, never your real
-        mid-conversation face.
+  <nav class="nav">
+    <div class="wordmark">rearview<span class="accent">.</span></div>
+    <div class="nav-links">
+      <a href="#why">Why</a>
+      <a href="#how">How it works</a>
+      <a href="https://github.com/asrithcheepurupalli/todo" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </nav>
+
+  <main class="app">
+    <header class="hero">
+      <div class="pill">
+        <span class="pill-dot" aria-hidden="true"></span>
+        Your self-view is lying to you
+      </div>
+      <h1>See yourself the way<br />they <em>just</em> saw you.</h1>
+      <p class="sub">
+        The moment you glance at your self-view, your eyes have already moved —
+        you only ever see your checking-the-mirror face. <strong>rearview</strong> plays
+        your camera back on a short delay, so you see your real mid-conversation
+        face. Live, moving, honest.
       </p>
-      <p>
-        <strong>Rearview plays your camera back on a short delay.</strong> When you glance over,
-        you're watching live, moving video of yourself from a few seconds ago — eyes still on the
-        screen, still talking — exactly how the other person saw you. No freezing, no screenshots.
-      </p>
-    </section>
+    </header>
 
     <section class="stage">
       <div class="canvas-wrap" id="canvasWrap">
         <canvas id="view"></canvas>
+
         <div class="placeholder" id="placeholder">
-          <button class="btn btn-primary" id="startBtn">Start camera</button>
-          <p class="privacy-note">Everything stays on your device. Nothing is recorded or uploaded.</p>
+          <svg class="cam-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <rect x="2.5" y="6" width="13" height="12" rx="3" stroke="currentColor" stroke-width="1.6"/>
+            <path d="M15.5 10.2l4.6-2.6a1 1 0 0 1 1.5.87v7.06a1 1 0 0 1-1.5.87l-4.6-2.6" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+          </svg>
+          <button class="btn btn-primary" id="startBtn">
+            Start camera
+            <span class="btn-glint" aria-hidden="true"></span>
+          </button>
+          <p class="privacy-note">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3l7 3v5c0 4.6-3 8.4-7 10-4-1.6-7-5.4-7-10V6l7-3z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 12l2.2 2.2L15.5 9.8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Everything stays on your device. Nothing is recorded or uploaded.
+          </p>
+        </div>
+
+        <div class="controlbar hidden" id="controls">
+          <div class="seg" role="group" aria-label="Delay">
+            <button class="seg-btn" data-delay="0">Live</button>
+            <button class="seg-btn" data-delay="1">1s</button>
+            <button class="seg-btn" data-delay="2">2s</button>
+            <button class="seg-btn active" data-delay="3">3s</button>
+            <button class="seg-btn" data-delay="5">5s</button>
+          </div>
+
+          <div class="divider" aria-hidden="true"></div>
+
+          <label class="switch" title="Off = unmirrored, how others actually see you">
+            <input type="checkbox" id="mirrorToggle" />
+            <span class="track"><span class="thumb"></span></span>
+            <span class="switch-label">Mirror</span>
+          </label>
+
+          <div class="divider" aria-hidden="true"></div>
+
+          <button class="btn btn-bar" id="pipBtn" title="Pop out a floating window you can keep over your call app">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5" stroke="currentColor" stroke-width="1.6"/><rect x="11.5" y="11.5" width="7" height="5" rx="1.2" fill="currentColor"/></svg>
+            Pop out
+          </button>
+
+          <button class="btn btn-bar btn-stop" id="stopBtn" title="Stop camera">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="2" fill="currentColor"/></svg>
+            Stop
+          </button>
         </div>
       </div>
-    </section>
-
-    <section class="controls hidden" id="controls">
-      <div class="control">
-        <label for="delaySlider">Delay <span class="value" id="delayValue">3.0s</span></label>
-        <input type="range" id="delaySlider" min="0" max="5" step="0.5" value="3" />
-        <p class="hint">How far back in time your mirror looks. 0s = a normal live mirror.</p>
-      </div>
-
-      <div class="control control-row">
-        <label class="toggle">
-          <input type="checkbox" id="mirrorToggle" />
-          <span>Mirror image</span>
-        </label>
-        <p class="hint">Off = unmirrored, how others actually see you. On = like a bathroom mirror.</p>
-      </div>
-
-      <div class="control control-row">
-        <button class="btn" id="pipBtn" title="Pop out a small floating window you can keep over your call app">
-          Pop out (Picture-in-Picture)
-        </button>
-        <button class="btn btn-quiet" id="stopBtn">Stop camera</button>
-      </div>
-
-      <p class="hint tip">
-        Tip: pop out the floating window and park it near your webcam, then get on your call.
-        Keep this tab visible (or popped out) so the delayed feed keeps running.
+      <p class="stage-hint">
+        Pop out the floating window, park it near your webcam, then join your call in any app.
       </p>
     </section>
 
-    <footer class="footer">
-      <p>Runs entirely in your browser · no account · no servers · open source</p>
-    </footer>
+    <section class="features" id="why">
+      <div class="card">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 5a8 8 0 1 1-7.6 5.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M3.5 6l2.6 4.4 4.9-1.8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 9v4l2.8 1.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Time-shifted</h3>
+        <p>A live mirror on a 3-second delay. Glance over and see your engaged face — eyes on the screen, still talking — not your glancing face.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4v16" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-dasharray="2.5 3"/><path d="M8.5 7.5L4 12l4.5 4.5M15.5 7.5L20 12l-4.5 4.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Unmirrored</h3>
+        <p>Call apps flip your self-view like a bathroom mirror. That's not what others see. rearview shows the unflipped truth — toggle it if you must.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3l7 3v5c0 4.6-3 8.4-7 10-4-1.6-7-5.4-7-10V6l7-3z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9 12l2.2 2.2L15.5 9.8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Private by design</h3>
+        <p>Frames live in memory for five seconds, then they're gone. No recording, no upload, no account, no servers. Just your browser.</p>
+      </div>
+    </section>
+
+    <section class="how" id="how">
+      <h2>Three steps to an honest mirror</h2>
+      <ol class="steps">
+        <li>
+          <span class="step-num">1</span>
+          <div><h4>Start the camera</h4><p>Allow camera access. The feed never leaves this page.</p></div>
+        </li>
+        <li>
+          <span class="step-num">2</span>
+          <div><h4>Pop it out</h4><p>The floating window stays on top of every app — Zoom, Meet, Teams, anything.</p></div>
+        </li>
+        <li>
+          <span class="step-num">3</span>
+          <div><h4>Glance anytime</h4><p>You'll see yourself from 3 seconds ago — exactly how the other person just saw you.</p></div>
+        </li>
+      </ol>
+    </section>
   </main>
+
+  <footer class="footer">
+    <div class="wordmark small">rearview<span class="accent">.</span></div>
+    <p>Runs entirely in your browser · no account · no servers · open source</p>
+  </footer>
 
   <script src="app.js"></script>
 </body>
