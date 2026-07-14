@@ -30,8 +30,7 @@
   const startBtn = document.getElementById('startBtn');
   const stopBtn = document.getElementById('stopBtn');
   const pipBtn = document.getElementById('pipBtn');
-  const delaySlider = document.getElementById('delaySlider');
-  const delayValue = document.getElementById('delayValue');
+  const delayBtns = Array.from(document.querySelectorAll('.seg-btn'));
   const mirrorToggle = document.getElementById('mirrorToggle');
 
   // --- State -------------------------------------------------------------
@@ -46,7 +45,7 @@
   let rafId = null;
   let capturing = false;        // guards overlapping async captures
   let startedAt = 0;            // for the "warming up" state
-  let delayMs = Number(delaySlider.value) * 1000;
+  let delayMs = Number(document.querySelector('.seg-btn.active').dataset.delay) * 1000;
   let mirrored = mirrorToggle.checked;
   let pipVideo = null;          // video element backing Picture-in-Picture
 
@@ -152,7 +151,7 @@
 
       const remaining = Math.max(0, delayMs - (now - startedAt)) / 1000;
       if (delayMs > 0) {
-        drawBadge(`rewinding… ready in ${remaining.toFixed(1)}s`);
+        drawBadge(`rewinding… ready in ${remaining.toFixed(1)}s`, false);
       }
       return;
     }
@@ -163,7 +162,11 @@
     ctx.restore();
 
     const actualDelay = (now - frame.t) / 1000;
-    drawBadge(delayMs === 0 ? 'live' : `you, ${actualDelay.toFixed(1)}s ago`);
+    if (delayMs === 0) {
+      drawBadge('live', true);
+    } else {
+      drawBadge(`you, ${actualDelay.toFixed(1)}s ago`, false);
+    }
   }
 
   function applyMirror() {
@@ -174,20 +177,34 @@
   }
 
   // Drawn on the canvas (not the DOM) so it also shows in the PiP window.
-  function drawBadge(text) {
-    const pad = 8;
-    ctx.font = '13px system-ui, sans-serif';
+  // Top-left, out of the way of the floating control bar.
+  function drawBadge(text, live) {
+    const x = 12;
+    const y = 12;
+    const h = 26;
+    const dotR = 3.5;
+    ctx.font = '600 13px Inter, system-ui, sans-serif';
     const tw = ctx.measureText(text).width;
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.55)';
+    const w = tw + 34;
+
+    ctx.fillStyle = 'rgba(10, 10, 16, 0.62)';
     if (ctx.roundRect) {
       ctx.beginPath();
-      ctx.roundRect(pad, canvas.height - 30 - pad, tw + pad * 2, 24, 12);
+      ctx.roundRect(x, y, w, h, h / 2);
       ctx.fill();
     } else {
-      ctx.fillRect(pad, canvas.height - 30 - pad, tw + pad * 2, 24);
+      ctx.fillRect(x, y, w, h);
     }
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.92)';
-    ctx.fillText(text, pad * 2, canvas.height - 13 - pad - 4);
+
+    ctx.fillStyle = live ? '#3ddc84' : '#8f7bff';
+    ctx.beginPath();
+    ctx.arc(x + 13, y + h / 2, dotR, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.94)';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(text, x + 23, y + h / 2 + 1);
+    ctx.textBaseline = 'alphabetic';
   }
 
   // --- Picture-in-Picture ----------------------------------------------------
@@ -220,9 +237,12 @@
   stopBtn.addEventListener('click', stop);
   pipBtn.addEventListener('click', togglePiP);
 
-  delaySlider.addEventListener('input', () => {
-    delayMs = Number(delaySlider.value) * 1000;
-    delayValue.textContent = Number(delaySlider.value).toFixed(1) + 's';
+  delayBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      delayBtns.forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+      delayMs = Number(btn.dataset.delay) * 1000;
+    });
   });
 
   mirrorToggle.addEventListener('change', () => {
