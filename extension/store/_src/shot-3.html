@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><link rel="stylesheet" href="shared.css"><style>
+  body { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 90px; text-align: center; }
+  h1 { font-size: 58px; margin-bottom: 16px; }
+  .sub { font-size: 21px; color: #9b9fad; margin-bottom: 52px; }
+  .cards { display: flex; gap: 20px; width: 100%; }
+  .card { flex: 1; text-align: left; background: rgba(255, 255, 255, 0.045); border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 18px; padding: 28px 26px; }
+  .card .ic { width: 46px; height: 46px; border-radius: 13px; margin-bottom: 18px;
+    display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(135deg, rgba(124, 92, 255, 0.2), rgba(0, 212, 255, 0.12));
+    border: 1px solid rgba(255, 255, 255, 0.16); }
+  .card .ic svg { width: 24px; height: 24px; stroke: #00d4ff; fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+  .card h3 { font-family: "Space Grotesk", sans-serif; font-size: 21px; margin-bottom: 10px; letter-spacing: -0.01em; }
+  .card p { font-size: 15.5px; line-height: 1.6; color: #9b9fad; }
+  .card p b { color: #f2f3f7; font-weight: 600; }
+  .quip { margin-top: 44px; font-size: 17px; color: #6b6f7c; font-style: italic; }
+</style></head>
+<body>
+  <div class="glow-a"></div><div class="glow-b"></div>
+  <h1>Provably <em>local.</em></h1>
+  <p class="sub">Your face is yours. rearview is built so it cannot leave your device.</p>
+  <div class="cards">
+    <div class="card">
+      <div class="ic"><svg viewBox="0 0 24 24"><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/><circle cx="12" cy="12" r="10"/><path d="M4 4l16 16" stroke="#ff5c6c"/></svg></div>
+      <h3>No network permission</h3>
+      <p>The extension <b>cannot</b> make network requests. Not "does not", cannot. The permission is never requested. Watch your network tab stay silent.</p>
+    </div>
+    <div class="card">
+      <div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l2.5 1.5"/></svg></div>
+      <h3>Five-second memory</h3>
+      <p>Frames live <b>in memory only</b>, just long enough to play back the delay, then they are gone. Nothing is ever written to disk.</p>
+    </div>
+    <div class="card">
+      <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.6-3 8.4-7 10-4-1.6-7-5.4-7-10V6l7-3z"/><path d="M9 12l2.2 2.2L15.5 9.8"/></svg></div>
+      <h3>Nothing collected</h3>
+      <p>No account, no analytics, no cookies, no servers. Your only data is your settings, stored <b>in your own browser</b>.</p>
+    </div>
+  </div>
+  <p class="quip">Open source, so you do not have to take our word for it.</p>
+  <div class="made">a <b>made.</b> product</div>
+</body></html>
