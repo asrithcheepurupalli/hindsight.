@@ -48,6 +48,17 @@ Two things make it honest:
 
 No build step, no framework — static files only (`index.html`, `style.css`, `app.js` plus SEO assets).
 
+## Chrome extension
+
+The `extension/` folder is a plain Manifest V3 extension (no build step) that puts rearview one click away during real calls:
+
+- **In-call overlay**: on Google Meet, Zoom (web), or Microsoft Teams, click the toolbar icon and choose "Show mirror in this call" — a small draggable delayed mirror appears in the corner of the call tab itself.
+- **Floating window**: anywhere else (or for desktop-app calls), it opens a compact mirror window with Picture-in-Picture.
+- Settings sync between the popup, the overlay, and the window.
+- **No network permission.** Nothing recorded, nothing uploaded — frames live in memory for five seconds, then they're gone.
+
+Try it: load `extension/` unpacked at `chrome://extensions` (Developer mode on). Package for the Web Store with `scripts/package-extension.sh`; listing copy lives in `STORE-LISTING.md`.
+
 ## Deploying
 
 The site is fully static: serve the repo root from any host. For GitHub Pages: repo **Settings → Pages → deploy from branch**. If you move it to a custom domain, update the `canonical`, `og:url`, `og:image`, and `twitter:image` URLs in `index.html`, plus `robots.txt` and `sitemap.xml`.
