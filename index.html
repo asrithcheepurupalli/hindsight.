@@ -3,12 +3,69 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>rearview. — see yourself the way they just saw you</title>
-  <meta name="description" content="A time-shifted live mirror for video calls. Glance at yourself as you were 3 seconds ago — eyes on the screen, mid-conversation — exactly how the other person saw you." />
-  <meta property="og:title" content="rearview." />
-  <meta property="og:description" content="See yourself the way they just saw you. A time-shifted live mirror for video calls." />
+
+  <!-- Primary SEO -->
+  <title>rearview. — See yourself the way they just saw you</title>
+  <meta name="description" content="A time-shifted live mirror for video calls. Glance at yourself as you were 3 seconds ago — eyes on the screen, mid-conversation — exactly how the other person saw you. Free, private, runs in your browser." />
+  <meta name="author" content="Asrith Cheepurupalli" />
+  <meta name="keywords" content="video call self view, delayed mirror, how do I look on video calls, unmirrored camera, zoom self view, webcam mirror, picture in picture camera" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0b0b10" />
+  <!-- Update the canonical + og:url/og:image origins when this moves to a custom domain -->
+  <link rel="canonical" href="https://asrithcheepurupalli.github.io/todo/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="made. by ac" />
+  <meta property="og:url" content="https://asrithcheepurupalli.github.io/todo/" />
+  <meta property="og:title" content="rearview. — See yourself the way they just saw you" />
+  <meta property="og:description" content="A time-shifted live mirror for video calls. See your real mid-conversation face, not your checking-the-mirror face. Free, private, in your browser." />
+  <meta property="og:image" content="https://asrithcheepurupalli.github.io/todo/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="rearview. — See yourself the way they just saw you" />
+  <meta name="twitter:description" content="A time-shifted live mirror for video calls. See your real mid-conversation face, not your checking-the-mirror face." />
+  <meta name="twitter:image" content="https://asrithcheepurupalli.github.io/todo/og-image.png" />
+
+  <!-- Icons & manifest -->
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%237c5cff'/%3E%3Cstop offset='1' stop-color='%2300d4ff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='%230b0b10'/%3E%3Cpath d='M16 7a9 9 0 1 1-8.6 6.3' fill='none' stroke='url(%23g)' stroke-width='3' stroke-linecap='round'/%3E%3Cpath d='M4.5 8.5l3 5 5.5-2' fill='none' stroke='url(%23g)' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+  <link rel="apple-touch-icon" href="icon-192.png" />
+  <link rel="manifest" href="site.webmanifest" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+
   <link rel="stylesheet" href="style.css" />
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "rearview.",
+    "url": "https://asrithcheepurupalli.github.io/todo/",
+    "description": "A time-shifted live mirror for video calls. See yourself the way the other person just saw you — your real mid-conversation face, live and unmirrored.",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires a modern browser with camera access",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "author": {
+      "@type": "Person",
+      "name": "Asrith Cheepurupalli",
+      "url": "https://made-by-ac.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "made. by ac",
+      "url": "https://made-by-ac.com"
+    }
+  }
+  </script>
 </head>
 <body>
   <div class="bg-glow" aria-hidden="true"></div>
@@ -19,6 +76,7 @@
       <a href="#why">Why</a>
       <a href="#how">How it works</a>
       <a href="https://github.com/asrithcheepurupalli/todo" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://made-by-ac.com" target="_blank" rel="noopener" class="nav-made">made<span class="accent">.</span></a>
     </div>
   </nav>
 
@@ -67,7 +125,7 @@
 
           <div class="divider" aria-hidden="true"></div>
 
-          <label class="switch" title="Off = unmirrored, how others actually see you">
+          <label class="switch" title="Off = unmirrored, how others actually see you (M)">
             <input type="checkbox" id="mirrorToggle" />
             <span class="track"><span class="thumb"></span></span>
             <span class="switch-label">Mirror</span>
@@ -75,7 +133,12 @@
 
           <div class="divider" aria-hidden="true"></div>
 
-          <button class="btn btn-bar" id="pipBtn" title="Pop out a floating window you can keep over your call app">
+          <button class="btn btn-bar hidden" id="camBtn" title="Switch camera">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 8.5a8 8 0 0 0-14.9 1M4 15.5a8 8 0 0 0 14.9-1" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M3.5 5.5v4h4M20.5 18.5v-4h-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="btn-bar-label">Camera</span>
+          </button>
+
+          <button class="btn btn-bar" id="pipBtn" title="Pop out a floating window you can keep over your call app (P)">
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5" stroke="currentColor" stroke-width="1.6"/><rect x="11.5" y="11.5" width="7" height="5" rx="1.2" fill="currentColor"/></svg>
             Pop out
           </button>
@@ -88,6 +151,9 @@
       </div>
       <p class="stage-hint">
         Pop out the floating window, park it near your webcam, then join your call in any app.
+      </p>
+      <p class="stage-hint keys">
+        <kbd>M</kbd> mirror&nbsp;&nbsp;·&nbsp;&nbsp;<kbd>P</kbd> pop out&nbsp;&nbsp;·&nbsp;&nbsp;<kbd>↑</kbd><kbd>↓</kbd> delay
       </p>
     </section>
 
@@ -135,9 +201,39 @@
   </main>
 
   <footer class="footer">
-    <div class="wordmark small">rearview<span class="accent">.</span></div>
-    <p>Runs entirely in your browser · no account · no servers · open source</p>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="wordmark">rearview<span class="accent">.</span></div>
+        <p class="made-lockup">
+          a <a href="https://made-by-ac.com" target="_blank" rel="noopener">made<span class="accent">.</span></a> product
+        </p>
+        <p class="footer-bio">
+          From a sentence to a live site. Designed &amp; built by
+          <a href="https://made-by-ac.com" target="_blank" rel="noopener">Asrith Cheepurupalli</a>.
+        </p>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h5>Product</h5>
+          <a href="#why">Why rearview</a>
+          <a href="#how">How it works</a>
+          <a href="https://github.com/asrithcheepurupalli/todo" target="_blank" rel="noopener">Source code</a>
+        </div>
+        <div class="footer-col">
+          <h5>made. by ac</h5>
+          <a href="https://made-by-ac.com" target="_blank" rel="noopener">Portfolio</a>
+          <a href="https://made-by-ac.com" target="_blank" rel="noopener">More products</a>
+          <a href="https://github.com/asrithcheepurupalli" target="_blank" rel="noopener">GitHub profile</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-base">
+      <p>© 2026 Asrith Cheepurupalli · made. by ac</p>
+      <p>Runs entirely in your browser · no account · no servers · open source</p>
+    </div>
   </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script src="app.js"></script>
 </body>

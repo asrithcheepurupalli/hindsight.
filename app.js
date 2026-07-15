@@ -1,5 +1,6 @@
 /*
- * Rearview — a time-shifted live mirror for video calls.
+ * rearview. — a time-shifted live mirror for video calls.
+ * https://made-by-ac.com
  *
  * The whole trick: capture webcam frames into a short in-memory ring buffer
  * and render the frame from `delay` seconds ago. Still live, still moving —
@@ -14,13 +15,11 @@
 
   // --- Config ------------------------------------------------------------
   const CAPTURE_FPS = 20;        // buffer capture rate
-  const MAX_DELAY_S = 5;         // slider max; bounds buffer memory
+  const MAX_DELAY_S = 5;         // largest preset; bounds buffer memory
   const BUFFER_SLACK_MS = 600;   // keep a little extra history beyond max delay
+  const STORAGE_KEY = 'rearview-settings';
   // 640x360 @ 20fps for 5s ≈ 100 frames — small enough to hold in memory.
-  const CAMERA_CONSTRAINTS = {
-    audio: false,
-    video: { width: { ideal: 640 }, height: { ideal: 360 }, facingMode: 'user' },
-  };
+  const BASE_VIDEO = { width: { ideal: 640 }, height: { ideal: 360 } };
 
   // --- Elements ----------------------------------------------------------
   const canvas = document.getElementById('view');
@@ -30,8 +29,10 @@
   const startBtn = document.getElementById('startBtn');
   const stopBtn = document.getElementById('stopBtn');
   const pipBtn = document.getElementById('pipBtn');
+  const camBtn = document.getElementById('camBtn');
   const delayBtns = Array.from(document.querySelectorAll('.seg-btn'));
   const mirrorToggle = document.getElementById('mirrorToggle');
+  const toastEl = document.getElementById('toast');
 
   // --- State -------------------------------------------------------------
   const video = document.createElement('video'); // hidden source element
@@ -44,20 +45,66 @@
   let captureTimer = null;
   let rafId = null;
   let capturing = false;        // guards overlapping async captures
-  let startedAt = 0;            // for the "warming up" state
-  let delayMs = Number(document.querySelector('.seg-btn.active').dataset.delay) * 1000;
-  let mirrored = mirrorToggle.checked;
+  let startedAt = 0;            // for the "rewinding" state
+  let delayMs = 3000;
+  let mirrored = false;
   let pipVideo = null;          // video element backing Picture-in-Picture
+  let cameras = [];             // available videoinput devices
+  let cameraIndex = 0;
+  let toastTimer = null;
+
+  // --- Settings persistence ------------------------------------------------
+  function loadSettings() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+      if (typeof saved.delay === 'number') delayMs = saved.delay;
+      if (typeof saved.mirrored === 'boolean') mirrored = saved.mirrored;
+    } catch (_) { /* corrupted settings — fall back to defaults */ }
+
+    mirrorToggle.checked = mirrored;
+    const match = delayBtns.find((b) => Number(b.dataset.delay) * 1000 === delayMs);
+    setActiveDelayBtn(match || delayBtns.find((b) => b.dataset.delay === '3'));
+  }
+
+  function saveSettings() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({ delay: delayMs, mirrored }));
+    } catch (_) { /* private mode — settings just won't persist */ }
+  }
+
+  function setActiveDelayBtn(btn) {
+    delayBtns.forEach((b) => b.classList.remove('active'));
+    btn.classList.add('active');
+    delayMs = Number(btn.dataset.delay) * 1000;
+  }
+
+  // --- Toast -----------------------------------------------------------------
+  function toast(message, ms = 3200) {
+    toastEl.textContent = message;
+    toastEl.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toastEl.classList.remove('show'), ms);
+  }
 
   // --- Camera lifecycle ----------------------------------------------------
+  function constraintsFor(index) {
+    const video = { ...BASE_VIDEO };
+    if (cameras[index]) {
+      video.deviceId = { exact: cameras[index].deviceId };
+    } else {
+      video.facingMode = 'user';
+    }
+    return { audio: false, video };
+  }
+
   async function start() {
     startBtn.disabled = true;
     try {
-      stream = await navigator.mediaDevices.getUserMedia(CAMERA_CONSTRAINTS);
+      stream = await navigator.mediaDevices.getUserMedia(constraintsFor(cameraIndex));
     } catch (err) {
       startBtn.disabled = false;
-      alert('Could not access the camera: ' + err.message +
-        '\n\nCheck the camera permission for this page and that no other app has locked the camera.');
+      toast('Could not access the camera — check the permission for this page ' +
+        'and that no other app has locked it.', 5000);
       return;
     }
 
@@ -76,6 +123,48 @@
 
     // If the camera dies (unplugged, revoked), reset the UI.
     stream.getVideoTracks()[0].addEventListener('ended', stop);
+
+    refreshCameraList();
+  }
+
+  async function refreshCameraList() {
+    try {
+      const devices = await navigator.mediaDevices.enumerateDevices();
+      cameras = devices.filter((d) => d.kind === 'videoinput');
+      const current = stream && stream.getVideoTracks()[0].getSettings().deviceId;
+      const idx = cameras.findIndex((c) => c.deviceId === current);
+      if (idx >= 0) cameraIndex = idx;
+      camBtn.classList.toggle('hidden', cameras.length < 2);
+    } catch (_) { /* enumeration unsupported — just hide the switch button */ }
+  }
+
+  async function switchCamera() {
+    if (cameras.length < 2) return;
+    const nextIndex = (cameraIndex + 1) % cameras.length;
+    let nextStream;
+    try {
+      nextStream = await navigator.mediaDevices.getUserMedia(constraintsFor(nextIndex));
+    } catch (err) {
+      toast('Could not switch to that camera.');
+      return;
+    }
+
+    if (stream) stream.getTracks().forEach((t) => t.stop());
+    stream = nextStream;
+    cameraIndex = nextIndex;
+    video.srcObject = stream;
+    await video.play();
+
+    canvas.width = video.videoWidth || 640;
+    canvas.height = video.videoHeight || 360;
+
+    // Old camera's frames shouldn't play back on the new one.
+    buffer.forEach((f) => f.bitmap.close());
+    buffer = [];
+    startedAt = performance.now();
+
+    stream.getVideoTracks()[0].addEventListener('ended', stop);
+    toast(cameras[cameraIndex].label || 'Camera ' + (cameraIndex + 1));
   }
 
   function stop() {
@@ -214,8 +303,8 @@
       return;
     }
     if (!document.pictureInPictureEnabled) {
-      alert('Picture-in-Picture is not available in this browser. ' +
-        'Keep this tab in a small window next to your call instead.');
+      toast('Picture-in-Picture is not available in this browser — keep this ' +
+        'tab in a small window next to your call instead.', 5000);
       return;
     }
     try {
@@ -227,8 +316,9 @@
       }
       await pipVideo.play();
       await pipVideo.requestPictureInPicture();
+      toast('Floating window opened — park it near your webcam.');
     } catch (err) {
-      alert('Could not open the floating window: ' + err.message);
+      toast('Could not open the floating window: ' + err.message, 5000);
     }
   }
 
@@ -236,16 +326,45 @@
   startBtn.addEventListener('click', start);
   stopBtn.addEventListener('click', stop);
   pipBtn.addEventListener('click', togglePiP);
+  camBtn.addEventListener('click', switchCamera);
 
   delayBtns.forEach((btn) => {
     btn.addEventListener('click', () => {
-      delayBtns.forEach((b) => b.classList.remove('active'));
-      btn.classList.add('active');
-      delayMs = Number(btn.dataset.delay) * 1000;
+      setActiveDelayBtn(btn);
+      saveSettings();
     });
   });
 
   mirrorToggle.addEventListener('change', () => {
     mirrored = mirrorToggle.checked;
+    saveSettings();
   });
+
+  // Keyboard shortcuts: M mirror · P pop out · arrows step through delay presets
+  document.addEventListener('keydown', (e) => {
+    const t = e.target;
+    const isTyping = t.matches('textarea, select') ||
+      (t.matches('input') && !['checkbox', 'radio', 'range', 'button'].includes(t.type));
+    if (isTyping || e.metaKey || e.ctrlKey || e.altKey) return;
+    if (!stream) return;
+
+    if (e.key === 'm' || e.key === 'M') {
+      mirrorToggle.checked = !mirrorToggle.checked;
+      mirrored = mirrorToggle.checked;
+      saveSettings();
+      toast(mirrored ? 'Mirrored — bathroom-mirror view' : 'Unmirrored — how others see you', 1800);
+    } else if (e.key === 'p' || e.key === 'P') {
+      togglePiP();
+    } else if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+      e.preventDefault();
+      const current = delayBtns.findIndex((b) => b.classList.contains('active'));
+      const next = e.key === 'ArrowUp'
+        ? Math.min(delayBtns.length - 1, current + 1)
+        : Math.max(0, current - 1);
+      setActiveDelayBtn(delayBtns[next]);
+      saveSettings();
+    }
+  });
+
+  loadSettings();
 })();
