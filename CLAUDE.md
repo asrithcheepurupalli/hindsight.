@@ -75,11 +75,14 @@ countdown, mirror transform), change BOTH files.**
 
 ## SEO / URLs
 
-- Canonical + OG + sitemap URLs point at
-  `https://asrithcheepurupalli.github.io/hindsight./` (repo is literally named
-  `hindsight.`, dot included). When moving to a custom domain, update:
-  `index.html` (canonical, og:url, og:image, twitter:image, JSON-LD url),
-  `robots.txt`, `sitemap.xml`, and the privacy URL in `STORE-LISTING.md`.
+- The site lives at `https://hindsight.made-by-ac.com/` (custom domain; the
+  `CNAME` file pins it for GitHub Pages). All canonical + OG + sitemap URLs
+  point there. If the domain ever changes, update: `index.html` (canonical,
+  og:url, og:image, twitter:image, JSON-LD url), `robots.txt`, `sitemap.xml`,
+  `privacy/index.html` (canonical), `CNAME`, and the privacy URL in
+  `STORE-LISTING.md`.
+- The privacy page is `privacy/index.html` so it serves at the clean URL
+  `/privacy` on any static host (repo links use `privacy/`).
 - `og-image.png`, `icon-192.png`, `icon-512.png` and `extension/icons/*` are
   generated (headless Chromium screenshots of the brand SVG/card) — regenerate
   rather than hand-edit.

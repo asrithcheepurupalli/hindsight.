@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://asrithcheepurupalli.github.io/hindsight./sitemap.xml
+Sitemap: https://hindsight.made-by-ac.com/sitemap.xml

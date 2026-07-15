@@ -73,7 +73,7 @@ during video calls so they can see how they appear to other participants.
 ## Privacy
 - No data collected, no analytics, no accounts.
 - Camera frames are processed in memory only and discarded within seconds.
-- Privacy policy: https://asrithcheepurupalli.github.io/hindsight./privacy.html
+- Privacy policy: https://hindsight.made-by-ac.com/privacy
 
 ## Assets checklist
 - [x] Screenshots 1280x800 (extension/store/screenshot-{1,2,3}-1280x800.png;
@@ -81,4 +81,5 @@ during video calls so they can see how they appear to other participants.
 - [x] Small promo tile 440x280 (extension/store/promo-tile-440x280.png)
 - [ ] Marquee 1400x560 (optional)
 - [x] Icon 128x128 (extension/icons/icon128.png)
-- [x] Privacy policy URL (privacy.html, live once GitHub Pages deploys)
+- [x] Privacy policy URL (https://hindsight.made-by-ac.com/privacy, live once
+      the site deploys on the custom domain)

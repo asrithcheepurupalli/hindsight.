@@ -61,7 +61,11 @@ Try it: load `extension/` unpacked at `chrome://extensions` (Developer mode on).
 
 ## Deploying
 
-The site is fully static: serve the repo root from any host. For GitHub Pages: repo **Settings → Pages → deploy from branch**. If you move it to a custom domain, update the `canonical`, `og:url`, `og:image`, and `twitter:image` URLs in `index.html`, plus `robots.txt` and `sitemap.xml`.
+The site is fully static and lives at **https://hindsight.made-by-ac.com** (all canonical/OG/sitemap URLs point there; the `CNAME` file covers GitHub Pages custom-domain setup).
+
+- **GitHub Pages**: repo **Settings → Pages → deploy from `main`**, then set the custom domain to `hindsight.made-by-ac.com` (the `CNAME` file keeps it pinned). Add a DNS `CNAME` record for `hindsight` → `asrithcheepurupalli.github.io` and enable "Enforce HTTPS" once the cert issues.
+- Any other static host (Vercel, Netlify) works too — just point the subdomain at it; the stray `CNAME` file is ignored there.
+- The privacy policy is served at the clean URL `/privacy` (it lives at `privacy/index.html`).
 
 ## Roadmap
 
