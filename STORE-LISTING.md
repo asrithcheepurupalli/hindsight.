@@ -73,7 +73,7 @@ during video calls so they can see how they appear to other participants.
 ## Privacy
 - No data collected, no analytics, no accounts.
 - Camera frames are processed in memory only and discarded within seconds.
-- Privacy policy: https://asrithcheepurupalli.github.io/hindsight/privacy.html
+- Privacy policy: https://asrithcheepurupalli.github.io/hindsight./privacy.html
 
 ## Assets checklist
 - [x] Screenshots 1280x800 (extension/store/screenshot-{1,2,3}-1280x800.png;

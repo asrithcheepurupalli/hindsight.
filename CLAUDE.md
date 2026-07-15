@@ -76,7 +76,7 @@ countdown, mirror transform), change BOTH files.**
 ## SEO / URLs
 
 - Canonical + OG + sitemap URLs point at
-  `https://asrithcheepurupalli.github.io/hindsight/` (repo is literally named
+  `https://asrithcheepurupalli.github.io/hindsight./` (repo is literally named
   `hindsight.`, dot included). When moving to a custom domain, update:
   `index.html` (canonical, og:url, og:image, twitter:image, JSON-LD url),
   `robots.txt`, `sitemap.xml`, and the privacy URL in `STORE-LISTING.md`.
