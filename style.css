@@ -223,8 +223,8 @@ canvas {
   gap: 8px;
   color: var(--text-faint);
   font-size: 0.82rem;
-  max-width: 360px;
-  text-align: center;
+  max-width: min(90%, 460px);
+  text-align: left;
 }
 
 .privacy-note svg {
@@ -247,8 +247,9 @@ canvas {
   transform: translateX(-50%);
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 8px 12px;
+  width: max-content;
+  gap: 9px;
+  padding: 7px 10px;
   border-radius: 999px;
   background: rgba(12, 12, 18, 0.72);
   border: 1px solid var(--border-strong);
@@ -282,7 +283,7 @@ canvas {
   font-family: var(--font);
   font-size: 0.82rem;
   font-weight: 600;
-  padding: 6px 13px;
+  padding: 5px 11px;
   border-radius: 999px;
   cursor: pointer;
   transition: color 0.15s, background 0.15s;
@@ -404,7 +405,12 @@ canvas {
   background: rgba(255, 255, 255, 0.08);
   color: var(--text);
   font-size: 0.85rem;
-  padding: 8px 15px;
+  padding: 7px 13px;
+}
+
+/* Camera switcher is icon-only; its tooltip carries the label */
+.btn-bar-label {
+  display: none;
 }
 
 .btn-bar:hover {
@@ -705,13 +711,19 @@ kbd {
   display: none !important;
 }
 
+@media (max-width: 900px) {
+  .btn-label { display: none; }
+  .divider { display: none; }
+}
+
 @media (max-width: 760px) {
   .app { gap: 56px; }
   .features, .steps { grid-template-columns: 1fr; }
   .nav-links { gap: 14px; }
-  .controlbar { gap: 9px; padding: 7px 10px; }
-  .divider { display: none; }
-  .switch-label, .btn-bar-label { display: none; }
+  .controlbar { gap: 6px; padding: 5px 7px; bottom: 10px; }
+  .seg-btn { padding: 4px 7px; font-size: 0.74rem; }
+  .btn-bar { padding: 6px 9px; }
+  .switch-label { display: none; }
   .footer-top { flex-direction: column; gap: 28px; }
   .footer-cols { gap: 40px; }
   .footer-base { flex-direction: column; text-align: center; }
