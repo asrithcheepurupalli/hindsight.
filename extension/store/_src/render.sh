@@ -15,8 +15,9 @@ render() { # html w h out
   echo "rendered ../$out (${w}x${h})"
 }
 
-render shot-1.html 1280 800 screenshot-1-1280x800.png
-render shot-2.html 1280 800 screenshot-2-1280x800.png
-render shot-3.html 1280 800 screenshot-3-1280x800.png
-render tile.html    440 280 promo-tile-440x280.png
+render shot-1.html  1280 800 screenshot-1-1280x800.png
+render shot-2.html  1280 800 screenshot-2-1280x800.png
+render shot-3.html  1280 800 screenshot-3-1280x800.png
+render tile.html     440 280 promo-tile-440x280.png
+render marquee.html 1400 560 marquee-1400x560.png
 echo "done."

@@ -79,7 +79,50 @@ during video calls so they can see how they appear to other participants.
 - [x] Screenshots 1280x800 (extension/store/screenshot-{1,2,3}-1280x800.png;
       re-render from extension/store/_src with render.sh)
 - [x] Small promo tile 440x280 (extension/store/promo-tile-440x280.png)
-- [ ] Marquee 1400x560 (optional)
-- [x] Icon 128x128 (extension/icons/icon128.png)
+- [x] Marquee 1400x560 (extension/store/marquee-1400x560.png)
+- [x] Icon 128x128 (extension/icons/icon128.png, ships inside the zip)
 - [x] Privacy policy URL (https://hindsight.made-by-ac.com/privacy, live once
       the site deploys on the custom domain)
+
+---
+
+## Dev console walkthrough (every field, in order)
+
+Prereqs: pay the one time 5 USD registration at
+https://chrome.google.com/webstore/devconsole, verify the account email, and
+make sure https://hindsight.made-by-ac.com/privacy is live first (the form
+validates it). Then click "New item" and upload the zip from
+`scripts/package-extension.sh`.
+
+### Store listing tab
+- Item name: from "Item name" above (comes from the manifest on upload).
+- Summary: from "Summary" above (also prefilled from the manifest).
+- Description: paste the "Description" section above.
+- Category: Productivity > Communication. Language: English (United States).
+- Store icon: auto-taken from the zip (icons/icon128.png).
+- Screenshots: upload the three 1280x800 PNGs in order (1 = pitch,
+  2 = in-call overlay, 3 = privacy).
+- Small promo tile: promo-tile-440x280.png. Marquee: marquee-1400x560.png.
+- Official URL: https://hindsight.made-by-ac.com (only selectable after the
+  domain is verified in Google Search Console; skip if not verified yet).
+- Homepage URL: https://hindsight.made-by-ac.com
+- Support URL: https://github.com/asrithcheepurupalli/hindsight./issues
+
+### Privacy tab
+- Single purpose: paste the "Single purpose description" above.
+- Permission justifications: paste each entry from "Permission
+  justifications" above (storage, activeTab, host permissions).
+- Remote code: select "No, I am not using remote code".
+- Data usage: check NO boxes (no data collected of any type). The three
+  certifications at the bottom (not selling data, no unrelated use, no
+  creditworthiness use) all apply trivially: certify all three.
+- Privacy policy URL: https://hindsight.made-by-ac.com/privacy
+
+### Distribution tab
+- Payments: Free. Visibility: Public. Distribution: all regions.
+
+### After submit
+- First review typically takes a few days. Camera-adjacent extensions can get
+  a manual pass; the no-network-permission design and the privacy page are
+  the answer to every question they ask.
+- When approved, add the Web Store link to the site hero/nav and README.
