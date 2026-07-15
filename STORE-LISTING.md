@@ -81,6 +81,9 @@ during video calls so they can see how they appear to other participants.
 - [x] Small promo tile 440x280 (extension/store/promo-tile-440x280.png)
 - [x] Marquee 1400x560 (extension/store/marquee-1400x560.png)
 - [x] Icon 128x128 (extension/icons/icon128.png, ships inside the zip)
+- [x] Store icon 128x128 (extension/store/store-icon-128.png; 96px art
+      centered with 16px transparent padding, per store guidelines — upload
+      this in the listing's Store icon field)
 - [x] Privacy policy URL (https://hindsight.made-by-ac.com/privacy, live once
       the site deploys on the custom domain)
 
