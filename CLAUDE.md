@@ -81,8 +81,9 @@ countdown, mirror transform), change BOTH files.**
   og:url, og:image, twitter:image, JSON-LD url), `robots.txt`, `sitemap.xml`,
   `privacy/index.html` (canonical), `CNAME`, and the privacy URL in
   `STORE-LISTING.md`.
-- The privacy page is `privacy/index.html` so it serves at the clean URL
-  `/privacy` on any static host (repo links use `privacy/`).
+- The privacy and support pages are `privacy/index.html` and
+  `support/index.html` so they serve at the clean URLs `/privacy` and
+  `/support` on any static host (repo links use `privacy/`, `support/`).
 - `og-image.png`, `icon-192.png`, `icon-512.png` and `extension/icons/*` are
   generated (headless Chromium screenshots of the brand SVG/card) — regenerate
   rather than hand-edit.

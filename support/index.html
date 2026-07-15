@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Support — hindsight.</title>
+  <meta name="description" content="hindsight support: setup help, troubleshooting for the delayed mirror, the browser extension, and how to reach us." />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0b0b10" />
+  <link rel="canonical" href="https://hindsight.made-by-ac.com/support" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%237c5cff'/%3E%3Cstop offset='1' stop-color='%2300d4ff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='%230b0b10'/%3E%3Cpath d='M16 7a9 9 0 1 1-8.6 6.3' fill='none' stroke='url(%23g)' stroke-width='3' stroke-linecap='round'/%3E%3Cpath d='M4.5 8.5l3 5 5.5-2' fill='none' stroke='url(%23g)' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    .legal { max-width: 680px; margin: 0 auto; padding: 24px; display: flex; flex-direction: column; gap: 22px; }
+    .legal h1 { font-family: var(--font-display); font-size: clamp(1.8rem, 4vw, 2.4rem); letter-spacing: -0.03em; }
+    .legal h2 { font-family: var(--font-display); font-size: 1.1rem; margin-top: 8px; }
+    .legal p, .legal li { color: var(--text-dim); font-size: 0.95rem; }
+    .legal ul { padding-left: 22px; display: flex; flex-direction: column; gap: 8px; }
+    .legal strong { color: var(--text); }
+    .legal a { color: var(--text); }
+    .faq { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px; }
+    .faq h3 { font-family: var(--font-display); font-size: 1rem; margin-bottom: 8px; letter-spacing: -0.01em; }
+    .faq + .faq { margin-top: 4px; }
+    .contact { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 4px; }
+    .contact a {
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 1px solid var(--border-strong); background: var(--surface);
+      border-radius: 999px; padding: 9px 18px; text-decoration: none;
+      font-size: 0.9rem; font-weight: 600; color: var(--text);
+      transition: border-color 0.15s, transform 0.15s;
+    }
+    .contact a:hover { border-color: var(--accent-1); transform: translateY(-1px); }
+  </style>
+</head>
+<body>
+  <div class="bg-glow" aria-hidden="true"></div>
+
+  <nav class="nav">
+    <a href="../" style="text-decoration:none;color:inherit"><div class="wordmark">hindsight<span class="accent">.</span></div></a>
+    <div class="nav-links">
+      <a href="../">Home</a>
+      <a href="../privacy/">Privacy</a>
+      <a href="https://made-by-ac.com" target="_blank" rel="noopener" class="nav-made">made<span class="accent">.</span></a>
+    </div>
+  </nav>
+
+  <main class="legal">
+    <h1>Support</h1>
+    <p>Most things fix themselves in under a minute. Start here; if you're still stuck, the contact buttons at the bottom reach a human — the same one who built it.</p>
+
+    <h2>Getting started</h2>
+    <div class="faq">
+      <h3>How do I use hindsight during a call?</h3>
+      <p>Two ways. On the <strong>website</strong>: click Start camera, pick a delay, then hit <strong>Pop out</strong> — the floating window stays on top of every app, so park it near your webcam and join your call anywhere. With the <strong>extension</strong>: on Google Meet, Zoom (web), or Teams, click the hindsight icon and choose "Show mirror in this call" for a draggable mirror inside the call tab itself.</p>
+    </div>
+    <div class="faq">
+      <h3>Why does it say "rewinding…" at first?</h3>
+      <p>hindsight shows you the past, so it needs to record a few seconds of the present first — frames buffer in memory until there's enough history to play back your chosen delay. It resolves itself in exactly <em>delay</em> seconds.</p>
+    </div>
+    <div class="faq">
+      <h3>Why is my image not flipped like in Zoom?</h3>
+      <p>That's the point: call apps mirror your self-view like a bathroom mirror, but that's not what others see. hindsight is unmirrored by default so you see the truth. Toggle <strong>Mirror</strong> if you prefer the familiar flipped view.</p>
+    </div>
+
+    <h2>Troubleshooting</h2>
+    <div class="faq">
+      <h3>The camera won't start</h3>
+      <ul>
+        <li>Check the camera permission: click the icon left of the address bar and allow Camera for this site (or for the extension window).</li>
+        <li>Another app may have locked the camera — quit other video apps and retry.</li>
+        <li>The site needs HTTPS or localhost; opening <code>index.html</code> straight from disk won't get camera access.</li>
+      </ul>
+    </div>
+    <div class="faq">
+      <h3>The mirror freezes when I switch tabs</h3>
+      <p>Browsers pause fully hidden tabs to save power. Keep the hindsight tab visible, or use <strong>Pop out</strong> — the floating window keeps everything running.</p>
+    </div>
+    <div class="faq">
+      <h3>The overlay button says it can't reach the call tab</h3>
+      <p>Reload the call tab once after installing or updating the extension — content scripts only attach to pages loaded after the install.</p>
+    </div>
+    <div class="faq">
+      <h3>Picture-in-Picture won't open</h3>
+      <p>PiP needs a recent Chrome or Edge. Firefox users: use the small floating window from the extension instead, or keep the tab in a narrow browser window beside your call.</p>
+    </div>
+
+    <h2>Privacy questions</h2>
+    <div class="faq">
+      <h3>Is my camera feed recorded or uploaded anywhere?</h3>
+      <p>No, and it can't be: frames live in memory for at most five seconds and are then discarded, and the extension holds <strong>no network permission</strong> — it is incapable of making network requests. Full details in the <a href="../privacy/">privacy policy</a>, and the <a href="https://github.com/asrithcheepurupalli/hindsight." target="_blank" rel="noopener">source is open</a> if you'd rather verify than trust.</p>
+    </div>
+
+    <h2>Still stuck?</h2>
+    <div class="contact">
+      <a href="https://github.com/asrithcheepurupalli/hindsight./issues" target="_blank" rel="noopener">Open a GitHub issue</a>
+      <a href="https://made-by-ac.com" target="_blank" rel="noopener">Contact via made-by-ac.com</a>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-base" style="border:none;margin-top:0">
+      <p>© 2026 Asrith Cheepurupalli · made. by ac</p>
+      <p><a href="../" style="color:inherit">hindsight home</a></p>
+    </div>
+  </footer>
+</body>
+</html>

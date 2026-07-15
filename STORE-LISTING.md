@@ -109,7 +109,7 @@ validates it). Then click "New item" and upload the zip from
 - Official URL: https://hindsight.made-by-ac.com (only selectable after the
   domain is verified in Google Search Console; skip if not verified yet).
 - Homepage URL: https://hindsight.made-by-ac.com
-- Support URL: https://github.com/asrithcheepurupalli/hindsight./issues
+- Support URL: https://hindsight.made-by-ac.com/support
 
 ### Privacy tab
 - Single purpose: paste the "Single purpose description" above.
