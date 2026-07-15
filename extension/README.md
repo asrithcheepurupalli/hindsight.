@@ -1,4 +1,4 @@
-# rearview extension (MV3)
+# hindsight extension (MV3)
 
 Plain Manifest V3, no build step. Load this folder unpacked at
 `chrome://extensions` (enable Developer mode first). Reload the extension

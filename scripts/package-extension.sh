@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# package-extension.sh — produce the Chrome Web Store upload zip for rearview.
+# package-extension.sh — produce the Chrome Web Store upload zip for hindsight.
 #
 # The extension is plain MV3, no build step: everything in extension/ ships
 # as-is. The zip excludes store assets and docs.
@@ -7,7 +7,7 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 VERSION=$(node -e "console.log(require('./extension/manifest.json').version)")
-OUT="rearview-extension-v${VERSION}.zip"
+OUT="hindsight-extension-v${VERSION}.zip"
 
 # preflight: everything the extension needs to run
 for f in extension/manifest.json extension/background.js extension/mirror-core.js \

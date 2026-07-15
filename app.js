@@ -1,5 +1,5 @@
 /*
- * rearview. — a time-shifted live mirror for video calls.
+ * hindsight. — a time-shifted live mirror for video calls.
  * https://made-by-ac.com
  *
  * The whole trick: capture webcam frames into a short in-memory ring buffer
@@ -17,7 +17,7 @@
   const CAPTURE_FPS = 20;        // buffer capture rate
   const MAX_DELAY_S = 5;         // largest preset; bounds buffer memory
   const BUFFER_SLACK_MS = 600;   // keep a little extra history beyond max delay
-  const STORAGE_KEY = 'rearview-settings';
+  const STORAGE_KEY = 'hindsight-settings';
   // 640x360 @ 20fps for 5s ≈ 100 frames — small enough to hold in memory.
   const BASE_VIDEO = { width: { ideal: 640 }, height: { ideal: 360 } };
 

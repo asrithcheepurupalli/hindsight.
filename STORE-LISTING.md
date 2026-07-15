@@ -1,4 +1,4 @@
-# rearview, Chrome Web Store listing (paste-ready)
+# hindsight, Chrome Web Store listing (paste-ready)
 
 Every field below matches the shipped build (storage + activeTab, content
 script on Meet, Zoom web and Teams, no network permission).
@@ -7,7 +7,7 @@ House rule: no em or en dashes in store copy.
 ---
 
 ## Item name
-rearview, honest self-view for video calls
+hindsight, honest self-view for video calls
 
 ## Summary (132 char max)
 A live mirror on a short delay. Glance over and see yourself as you were 3 seconds ago, exactly how the other person saw you.
@@ -24,14 +24,14 @@ The moment you glance at your self-view, your eyes have already moved. All you
 ever see is your checking-the-mirror face, never your real mid-conversation
 face.
 
-rearview fixes that with a trick so simple it feels obvious afterwards: it
+hindsight fixes that with a trick so simple it feels obvious afterwards: it
 plays your own camera back to you on a short delay. Glance at it and you are
 watching live, moving video of yourself from three seconds ago. Eyes still on
 the screen, still talking, still reacting. Exactly what the other person just
 saw.
 
 How you use it:
-- On Google Meet, Zoom (web) or Microsoft Teams, click the rearview icon and
+- On Google Meet, Zoom (web) or Microsoft Teams, click the hindsight icon and
   choose "Show mirror in this call". A small draggable mirror appears in the
   corner of the call itself.
 - Anywhere else (or if you take calls in a desktop app), open the floating
@@ -42,8 +42,10 @@ Two things make it honest:
 1. Time shift. You see your engaged face, not your glancing face. Pick Live,
    1s, 2s, 3s or 5s.
 2. Unmirrored by default. Call apps flip your self-view like a bathroom
-   mirror, but that is not what others see. rearview shows the unflipped
+   mirror, but that is not what others see. hindsight shows the unflipped
    truth, with a toggle if you prefer the mirror.
+
+Hindsight is 20/20. Now your self-view is too.
 
 How it stays honest:
 - Everything runs on your device. Frames live in memory for five seconds and
@@ -71,7 +73,7 @@ during video calls so they can see how they appear to other participants.
 ## Privacy
 - No data collected, no analytics, no accounts.
 - Camera frames are processed in memory only and discarded within seconds.
-- Privacy policy: https://asrithcheepurupalli.github.io/rearview./privacy.html
+- Privacy policy: https://asrithcheepurupalli.github.io/hindsight/privacy.html
 
 ## Assets checklist
 - [x] Screenshots 1280x800 (extension/store/screenshot-{1,2,3}-1280x800.png;

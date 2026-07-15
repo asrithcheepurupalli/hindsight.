@@ -1,4 +1,4 @@
-// rearview floating mirror window. Opened by the popup when the active tab
+// hindsight floating mirror window. Opened by the popup when the active tab
 // isn't a supported call site. Auto-starts the camera (first run shows a
 // Start button so the permission prompt has a user gesture behind it).
 
@@ -25,7 +25,7 @@
   }
 
   async function start() {
-    mirror = window.RearviewCore.create(canvas, {
+    mirror = window.HindsightCore.create(canvas, {
       delayMs: settings.delay,
       mirrored: settings.mirrored,
       onEnded: () => {

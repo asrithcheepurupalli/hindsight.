@@ -1,5 +1,5 @@
 /*
- * rearview in-call overlay. Injected on Meet / Zoom web / Teams. Mounts a
+ * hindsight in-call overlay. Injected on Meet / Zoom web / Teams. Mounts a
  * small draggable, delayed self-view in the corner of the call tab when the
  * user asks for it from the popup. Nothing is mounted (and no camera is
  * touched) until then.
@@ -13,7 +13,7 @@
 
 (() => {
   'use strict';
-  if (window.__rearview) return;
+  if (window.__hindsight) return;
 
   const hasChrome = typeof chrome !== 'undefined' && !!(chrome.storage && chrome.storage.sync);
   const DELAYS = [0, 1000, 2000, 3000, 5000];
@@ -47,7 +47,7 @@
 
   const CSS = `
     :host { all: initial; }
-    .rv {
+    .hs {
       position: fixed;
       z-index: 2147483646;
       right: 20px;
@@ -61,10 +61,10 @@
       backdrop-filter: blur(12px);
       font-family: Inter, system-ui, -apple-system, sans-serif;
       user-select: none;
-      animation: rv-in 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
+      animation: hs-in 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
     }
-    @keyframes rv-in { from { opacity: 0; transform: translateY(8px) scale(0.97); } to { opacity: 1; transform: none; } }
-    .rv-head {
+    @keyframes hs-in { from { opacity: 0; transform: translateY(8px) scale(0.97); } to { opacity: 1; transform: none; } }
+    .hs-head {
       display: flex;
       align-items: center;
       gap: 7px;
@@ -75,58 +75,58 @@
       font-weight: 700;
       letter-spacing: -0.02em;
     }
-    .rv-head:active { cursor: grabbing; }
-    .rv-dot {
+    .hs-head:active { cursor: grabbing; }
+    .hs-dot {
       width: 7px; height: 7px; border-radius: 50%;
       background: linear-gradient(135deg, #7c5cff, #00d4ff);
       box-shadow: 0 0 8px rgba(124, 92, 255, 0.9);
     }
-    .rv-head .rv-accent { color: #8f7bff; }
-    .rv-spacer { flex: 1; }
-    .rv-x {
+    .hs-head .hs-accent { color: #8f7bff; }
+    .hs-spacer { flex: 1; }
+    .hs-x {
       border: none; background: none; padding: 2px 4px; cursor: pointer;
       color: rgba(155, 159, 173, 0.9); font-size: 14px; line-height: 1;
       border-radius: 6px; transition: color 0.15s, background 0.15s;
     }
-    .rv-x:hover { color: #fff; background: rgba(255, 255, 255, 0.1); }
+    .hs-x:hover { color: #fff; background: rgba(255, 255, 255, 0.1); }
     canvas { display: block; width: 100%; aspect-ratio: 16 / 9; background: #000; }
-    .rv-err {
+    .hs-err {
       padding: 18px 14px; color: rgba(242, 243, 247, 0.85);
       font-size: 12px; line-height: 1.55; font-weight: 400;
     }
-    .rv-bar {
+    .hs-bar {
       display: flex; align-items: center; gap: 6px;
       padding: 7px 9px;
       opacity: 0;
       transition: opacity 0.18s ease;
     }
-    .rv:hover .rv-bar { opacity: 1; }
-    .rv-seg { display: flex; gap: 2px; background: rgba(255,255,255,0.07); border-radius: 999px; padding: 2px; }
-    .rv-seg button {
+    .hs:hover .hs-bar { opacity: 1; }
+    .hs-seg { display: flex; gap: 2px; background: rgba(255,255,255,0.07); border-radius: 999px; padding: 2px; }
+    .hs-seg button {
       border: none; background: transparent; cursor: pointer;
       color: rgba(155, 159, 173, 1); font: 600 10.5px Inter, system-ui, sans-serif;
       padding: 4px 8px; border-radius: 999px; transition: color 0.15s, background 0.15s;
     }
-    .rv-seg button:hover { color: #fff; }
-    .rv-seg button.on {
+    .hs-seg button:hover { color: #fff; }
+    .hs-seg button.on {
       background: linear-gradient(135deg, #7c5cff, #00d4ff);
       color: #fff;
     }
-    .rv-mir {
+    .hs-mir {
       margin-left: auto;
       border: 1px solid rgba(255, 255, 255, 0.14); background: rgba(255, 255, 255, 0.06);
       cursor: pointer; color: rgba(155, 159, 173, 1);
       font: 600 10.5px Inter, system-ui, sans-serif;
       padding: 4px 9px; border-radius: 999px; transition: all 0.15s;
     }
-    .rv-mir:hover { color: #fff; }
-    .rv-mir.on { background: linear-gradient(135deg, #7c5cff, #00d4ff); color: #fff; border-color: transparent; }
-    @media (prefers-reduced-motion: reduce) { .rv { animation: none; } }
+    .hs-mir:hover { color: #fff; }
+    .hs-mir.on { background: linear-gradient(135deg, #7c5cff, #00d4ff); color: #fff; border-color: transparent; }
+    @media (prefers-reduced-motion: reduce) { .hs { animation: none; } }
   `;
 
   function buildOverlay(pos) {
     host = document.createElement('div');
-    host.id = 'rearview-overlay-host';
+    host.id = 'hindsight-overlay-host';
     shadow = host.attachShadow({ mode: 'open' });
 
     const style = document.createElement('style');
@@ -134,7 +134,7 @@
     shadow.appendChild(style);
 
     const box = document.createElement('div');
-    box.className = 'rv';
+    box.className = 'hs';
     if (pos) {
       box.style.right = 'auto';
       box.style.bottom = 'auto';
@@ -143,10 +143,10 @@
     }
 
     const head = document.createElement('div');
-    head.className = 'rv-head';
-    head.innerHTML = '<span class="rv-dot"></span><span class="rv-name">rearview<span class="rv-accent">.</span></span><span class="rv-spacer"></span>';
+    head.className = 'hs-head';
+    head.innerHTML = '<span class="hs-dot"></span><span class="hs-name">hindsight<span class="hs-accent">.</span></span><span class="hs-spacer"></span>';
     const closeBtn = document.createElement('button');
-    closeBtn.className = 'rv-x';
+    closeBtn.className = 'hs-x';
     closeBtn.title = 'Close';
     closeBtn.textContent = '✕';
     closeBtn.addEventListener('click', destroy);
@@ -155,9 +155,9 @@
     const canvas = document.createElement('canvas');
 
     const bar = document.createElement('div');
-    bar.className = 'rv-bar';
+    bar.className = 'hs-bar';
     const seg = document.createElement('div');
-    seg.className = 'rv-seg';
+    seg.className = 'hs-seg';
     DELAYS.forEach((ms, i) => {
       const b = document.createElement('button');
       b.textContent = LABELS[i];
@@ -172,7 +172,7 @@
       seg.appendChild(b);
     });
     const mir = document.createElement('button');
-    mir.className = 'rv-mir' + (settings.mirrored ? ' on' : '');
+    mir.className = 'hs-mir' + (settings.mirrored ? ' on' : '');
     mir.textContent = 'Mirror';
     mir.title = 'Off = how others see you';
     mir.addEventListener('click', () => {
@@ -197,7 +197,7 @@
   function makeDraggable(box, handle) {
     let sx = 0, sy = 0, ox = 0, oy = 0, dragging = false;
     handle.addEventListener('pointerdown', (e) => {
-      if (e.target.closest('.rv-x')) return;
+      if (e.target.closest('.hs-x')) return;
       dragging = true;
       const r = box.getBoundingClientRect();
       sx = e.clientX; sy = e.clientY; ox = r.left; oy = r.top;
@@ -223,7 +223,7 @@
   function showError(box, canvas, message) {
     canvas.remove();
     const err = document.createElement('div');
-    err.className = 'rv-err';
+    err.className = 'hs-err';
     err.textContent = message;
     box.insertBefore(err, box.lastElementChild);
   }
@@ -236,7 +236,7 @@
     await loadSettings();
     const pos = await loadPosition();
     const { box, canvas } = buildOverlay(pos);
-    mirror = window.RearviewCore.create(canvas, {
+    mirror = window.HindsightCore.create(canvas, {
       delayMs: settings.delay,
       mirrored: settings.mirrored,
       onEnded: destroy,
@@ -260,11 +260,11 @@
 
   if (hasChrome && chrome.runtime && chrome.runtime.onMessage) {
     chrome.runtime.onMessage.addListener((msg, _sender, sendResponse) => {
-      if (msg && msg.type === 'rearview-toggle') {
+      if (msg && msg.type === 'hindsight-toggle') {
         toggle().then(sendResponse);
         return true; // async response
       }
-      if (msg && msg.type === 'rearview-status') {
+      if (msg && msg.type === 'hindsight-status') {
         sendResponse({ shown: !!host });
       }
     });
@@ -275,18 +275,18 @@
       if (changes.delay) {
         settings.delay = changes.delay.newValue;
         if (mirror) mirror.setDelay(settings.delay);
-        shadow.querySelectorAll('.rv-seg button').forEach((b) => {
+        shadow.querySelectorAll('.hs-seg button').forEach((b) => {
           b.classList.toggle('on', Number(b.dataset.delay) === settings.delay);
         });
       }
       if (changes.mirrored) {
         settings.mirrored = changes.mirrored.newValue;
         if (mirror) mirror.setMirror(settings.mirrored);
-        const m = shadow.querySelector('.rv-mir');
+        const m = shadow.querySelector('.hs-mir');
         if (m) m.classList.toggle('on', settings.mirrored);
       }
     });
   }
 
-  window.__rearview = { toggle, destroy };
+  window.__hindsight = { toggle, destroy };
 })();

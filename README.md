@@ -1,4 +1,4 @@
-# rearview.
+# hindsight.
 
 **See yourself the way they *just* saw you.**
 
@@ -12,12 +12,12 @@ On a video call, you can never see how you actually look to the other person. Th
 
 ## The solution
 
-rearview plays your own camera back to you on a short, adjustable delay (default 3 seconds). When you glance at it, you're watching **live, continuously moving video of yourself from a few seconds ago** — eyes still on the screen, still talking, still reacting. Exactly what the other participants just saw.
+hindsight plays your own camera back to you on a short, adjustable delay (default 3 seconds). When you glance at it, you're watching **live, continuously moving video of yourself from a few seconds ago** — eyes still on the screen, still talking, still reacting. Exactly what the other participants just saw.
 
 Two things make it honest:
 
 1. **Time shift** — you see your engaged face, not your glancing face.
-2. **Unmirrored by default** — call apps flip your self-view like a bathroom mirror, but that's not what others see. rearview shows the unflipped view (with a toggle if you prefer the mirror).
+2. **Unmirrored by default** — call apps flip your self-view like a bathroom mirror, but that's not what others see. hindsight shows the unflipped view (with a toggle if you prefer the mirror).
 
 ## Features
 
@@ -36,7 +36,7 @@ Two things make it honest:
 3. Pick your delay and click **Pop out**.
 4. Park the floating window near your webcam and join your call in any app. Glance at it whenever you want an honest look at yourself.
 
-> **Note:** keep the rearview tab visible or popped out. Browsers throttle fully hidden background tabs, which can pause the delayed feed.
+> **Note:** keep the hindsight tab visible or popped out. Browsers throttle fully hidden background tabs, which can pause the delayed feed.
 
 ## How it works
 
@@ -50,7 +50,7 @@ No build step, no framework — static files only (`index.html`, `style.css`, `a
 
 ## Chrome extension
 
-The `extension/` folder is a plain Manifest V3 extension (no build step) that puts rearview one click away during real calls:
+The `extension/` folder is a plain Manifest V3 extension (no build step) that puts hindsight one click away during real calls:
 
 - **In-call overlay**: on Google Meet, Zoom (web), or Microsoft Teams, click the toolbar icon and choose "Show mirror in this call" — a small draggable delayed mirror appears in the corner of the call tab itself.
 - **Floating window**: anywhere else (or for desktop-app calls), it opens a compact mirror window with Picture-in-Picture.

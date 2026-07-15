@@ -22,23 +22,23 @@
   .callbar { height: 58px; display: flex; align-items: center; justify-content: center; gap: 14px; }
   .cbtn { width: 40px; height: 40px; border-radius: 50%; background: rgba(255, 255, 255, 0.1); }
   .cbtn.red { background: #ea4335; width: 56px; border-radius: 999px; }
-  /* the rearview overlay riding on top */
-  .rv { position: absolute; right: 18px; bottom: 76px; width: 252px; border-radius: 14px; overflow: hidden;
+  /* the hindsight overlay riding on top */
+  .hs { position: absolute; right: 18px; bottom: 76px; width: 252px; border-radius: 14px; overflow: hidden;
     background: rgba(11, 11, 16, 0.88); border: 1px solid rgba(255, 255, 255, 0.16);
     box-shadow: 0 18px 50px rgba(0, 0, 0, 0.55), 0 0 60px -18px rgba(124, 92, 255, 0.55); }
-  .rv-head { display: flex; align-items: center; gap: 7px; padding: 8px 11px;
+  .hs-head { display: flex; align-items: center; gap: 7px; padding: 8px 11px;
     color: rgba(242, 243, 247, 0.92); font: 700 12.5px "Inter", sans-serif; letter-spacing: -0.02em; }
-  .rv-dot { width: 7px; height: 7px; border-radius: 50%; background: linear-gradient(135deg, #7c5cff, #00d4ff);
+  .hs-dot { width: 7px; height: 7px; border-radius: 50%; background: linear-gradient(135deg, #7c5cff, #00d4ff);
     box-shadow: 0 0 8px rgba(124, 92, 255, 0.9); }
-  .rv-x { margin-left: auto; color: #9b9fad; font-size: 13px; }
-  .rv .feed { height: 142px; position: relative; overflow: hidden;
+  .hs-x { margin-left: auto; color: #9b9fad; font-size: 13px; }
+  .hs .feed { height: 142px; position: relative; overflow: hidden;
     background: radial-gradient(140% 120% at 50% 125%, rgba(124, 92, 255, 0.5), transparent 55%),
       linear-gradient(180deg, #14141f, #0d0d14); }
-  .rv .badge { top: 10px; left: 10px; font-size: 11px; padding: 5px 10px 5px 8px; }
-  .rv .badge i { width: 6px; height: 6px; }
-  .rv-bar { display: flex; align-items: center; gap: 6px; padding: 8px 10px; }
-  .rv-bar .seg span { font-size: 10.5px; padding: 4px 8px; }
-  .rv-bar .pillbtn { font-size: 10.5px; padding: 4px 9px; margin-left: auto; }
+  .hs .badge { top: 10px; left: 10px; font-size: 11px; padding: 5px 10px 5px 8px; }
+  .hs .badge i { width: 6px; height: 6px; }
+  .hs-bar { display: flex; align-items: center; gap: 6px; padding: 8px 10px; }
+  .hs-bar .seg span { font-size: 10.5px; padding: 4px 8px; }
+  .hs-bar .pillbtn { font-size: 10.5px; padding: 4px 9px; margin-left: auto; }
 </style></head>
 <body>
   <div class="glow-a"></div><div class="glow-b"></div>
@@ -52,13 +52,13 @@
       <div class="tile"><div class="init">JK</div><span class="name">Jae K.</span></div>
     </div>
     <div class="callbar"><div class="cbtn"></div><div class="cbtn"></div><div class="cbtn red"></div><div class="cbtn"></div><div class="cbtn"></div></div>
-    <div class="rv">
-      <div class="rv-head"><span class="rv-dot"></span><span>rearview<span class="dot">.</span></span><span class="rv-x">✕</span></div>
+    <div class="hs">
+      <div class="hs-head"><span class="hs-dot"></span><span>hindsight<span class="dot">.</span></span><span class="hs-x">✕</span></div>
       <div class="feed">
         <div class="person" style="width:58%"><div class="head"></div><div class="body"></div></div>
         <div class="badge"><i></i>you, 3.0s ago</div>
       </div>
-      <div class="rv-bar">
+      <div class="hs-bar">
         <div class="seg"><span>Live</span><span>2s</span><span class="on">3s</span><span>5s</span></div>
         <span class="pillbtn">Mirror</span>
       </div>

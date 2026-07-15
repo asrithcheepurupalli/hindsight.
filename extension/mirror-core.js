@@ -1,5 +1,5 @@
 /*
- * mirror-core.js, the rearview engine as a plain IIFE (MV3 content scripts
+ * mirror-core.js, the hindsight engine as a plain IIFE (MV3 content scripts
  * can't be modules). Captures webcam frames into a short in-memory ring
  * buffer and renders the frame from `delay` seconds ago onto a canvas.
  * Used by the in-call overlay (content.js) and the floating window
@@ -178,5 +178,5 @@
   }
 
   const api = { create, MAX_DELAY_S };
-  if (typeof window !== 'undefined') window.RearviewCore = api;
+  if (typeof window !== 'undefined') window.HindsightCore = api;
 })();

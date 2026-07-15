@@ -1,4 +1,4 @@
-// rearview background service worker. Deliberately tiny: seeds default
+// hindsight background service worker. Deliberately tiny: seeds default
 // settings on install. The extension makes no network requests of its own.
 
 chrome.runtime.onInstalled.addListener(async () => {

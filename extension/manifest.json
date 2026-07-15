@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "rearview, honest self-view for video calls",
+  "name": "hindsight, honest self-view for video calls",
   "version": "0.1.0",
   "description": "A live mirror on a short delay. Glance over and see yourself as you were 3 seconds ago, exactly how the other person saw you.",
   "permissions": ["storage", "activeTab"],
@@ -16,7 +16,7 @@
   },
   "action": {
     "default_popup": "popup.html",
-    "default_title": "rearview",
+    "default_title": "hindsight",
     "default_icon": {
       "16": "icons/icon16.png",
       "32": "icons/icon32.png",

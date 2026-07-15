@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-rearview is a time-shifted live mirror for video calls: it plays the user's own
+hindsight is a time-shifted live mirror for video calls: it plays the user's own
 camera back on a short delay so a glance at it shows their real
 mid-conversation face (eyes on screen), not their checking-the-mirror face.
 It is **two deployables in one repo**:
@@ -36,7 +36,7 @@ The ring-buffer + render logic is duplicated, intentionally:
 - `app.js` (site) — full app: settings persistence in localStorage, keyboard
   shortcuts, toasts, camera switcher.
 - `extension/mirror-core.js` — the same capture/render core as a plain IIFE
-  exposing `window.RearviewCore` (MV3 content scripts can't be modules),
+  exposing `window.HindsightCore` (MV3 content scripts can't be modules),
   consumed by both `extension/content.js` and `extension/window.js`.
 
 **When you change buffer/render behavior (capture rate, badge drawing, warmup
@@ -66,7 +66,7 @@ countdown, mirror transform), change BOTH files.**
   and window all listen to `chrome.storage.onChanged`. Overlay position is
   `chrome.storage.local` (`overlayPos`).
 - `content.js` guards every `chrome.*` access (`hasChrome`) and exposes
-  `window.__rearview = { toggle, destroy }` so tests can inject and drive it
+  `window.__hindsight = { toggle, destroy }` so tests can inject and drive it
   on a plain page without extension APIs.
 - **Invariant: the extension holds no network permission and makes no network
   requests of its own.** Fonts are bundled in `extension/fonts/` (never load
@@ -76,8 +76,8 @@ countdown, mirror transform), change BOTH files.**
 ## SEO / URLs
 
 - Canonical + OG + sitemap URLs point at
-  `https://asrithcheepurupalli.github.io/rearview./` (repo is literally named
-  `rearview.`, dot included). When moving to a custom domain, update:
+  `https://asrithcheepurupalli.github.io/hindsight/` (repo is literally named
+  `hindsight.`, dot included). When moving to a custom domain, update:
   `index.html` (canonical, og:url, og:image, twitter:image, JSON-LD url),
   `robots.txt`, `sitemap.xml`, and the privacy URL in `STORE-LISTING.md`.
 - `og-image.png`, `icon-192.png`, `icon-512.png` and `extension/icons/*` are
@@ -86,7 +86,7 @@ countdown, mirror transform), change BOTH files.**
 
 ## Style
 
-- Brand: lowercase wordmark `rearview.` with gradient accent dot; dark theme
+- Brand: lowercase wordmark `hindsight.` with gradient accent dot; dark theme
   `#0b0b10`; violet→cyan gradient (`#7c5cff` → `#00d4ff`); Space Grotesk for
   display, Inter for body.
 - Footer/branding must credit "a made. product" and link to

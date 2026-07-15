@@ -1,4 +1,4 @@
-// rearview popup. Context-aware launcher: on a supported call site it toggles
+// hindsight popup. Context-aware launcher: on a supported call site it toggles
 // the in-call overlay via the content script; anywhere else it opens the
 // floating mirror window. Settings live in chrome.storage.sync so the popup,
 // overlay, and window stay in step.
@@ -68,7 +68,7 @@
       const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
       if (tab && tab.url && CALL_SITES.some((re) => re.test(tab.url))) {
         callTab = tab;
-        const res = await chrome.tabs.sendMessage(tab.id, { type: 'rearview-status' })
+        const res = await chrome.tabs.sendMessage(tab.id, { type: 'hindsight-status' })
           .catch(() => null);
         overlayShown = !!(res && res.shown);
       }
@@ -91,7 +91,7 @@
 
   cta.addEventListener('click', async () => {
     if (callTab) {
-      const res = await chrome.tabs.sendMessage(callTab.id, { type: 'rearview-toggle' })
+      const res = await chrome.tabs.sendMessage(callTab.id, { type: 'hindsight-toggle' })
         .catch(() => null);
       if (res) {
         overlayShown = res.shown;
