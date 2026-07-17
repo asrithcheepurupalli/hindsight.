@@ -169,6 +169,32 @@ body {
   font-weight: 600;
 }
 
+.hero-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+
+.hero-cta a {
+  text-decoration: none;
+}
+
+.btn-ghost {
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  color: var(--text-dim);
+  font-size: 0.95rem;
+  padding: 12px 24px;
+}
+
+.btn-ghost:hover {
+  color: var(--text);
+  border-color: var(--accent-1);
+}
+
 /* ---------- Stage ---------- */
 .stage {
   display: flex;

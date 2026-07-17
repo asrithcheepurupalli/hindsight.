@@ -6,6 +6,8 @@ A time-shifted live mirror for video calls. Runs entirely in your browser — no
 
 A **[made.](https://made-by-ac.com)** product, designed & built by [Asrith Cheepurupalli](https://made-by-ac.com).
 
+**[▸ Add to Chrome](https://chromewebstore.google.com/detail/ailjigbgfbeeinnpkffejnamifidahlf)** · **[Try it on the web](https://hindsight.made-by-ac.com)**
+
 ## The problem
 
 On a video call, you can never see how you actually look to the other person. The moment you glance at your self-view tile, your eyes have already moved — so all you ever see is your *checking-the-mirror* face, never your real *mid-conversation* face. Freezing the frame or taking a screenshot loses the live feel entirely.
@@ -49,6 +51,8 @@ Two things make it honest:
 No build step, no framework — static files only (`index.html`, `style.css`, `app.js` plus SEO assets).
 
 ## Chrome extension
+
+**[Install from the Chrome Web Store](https://chromewebstore.google.com/detail/ailjigbgfbeeinnpkffejnamifidahlf)** — or load `extension/` unpacked for development.
 
 The `extension/` folder is a plain Manifest V3 extension (no build step) that puts hindsight one click away during real calls:
 
